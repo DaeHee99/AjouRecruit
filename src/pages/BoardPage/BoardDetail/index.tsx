@@ -3,7 +3,9 @@ import { useSelector } from "react-redux";
 import MDEditor from "@uiw/react-md-editor";
 import Badge from "./Badge";
 import { getTargetBoard, deleteBoard, finishBoard } from "../../../api/board";
+import { getAllComment } from "../../../api/comment";
 import { useNavigate } from "react-router-dom";
+import CommentForm from "./CommentForm";
 
 interface Props {
   showModal: boolean;
@@ -14,6 +16,7 @@ interface Props {
 function BoardDetail({ showModal, setShowModal, targetId }: Props) {
   const navigation = useNavigate();
   const user = useSelector((state: { user: any }) => state.user);
+  const [reload, setReload] = useState(false);
   const [animation, setAnimation] = useState(false);
   const [boardData, setBoardData] = useState({
     boardId: 0,
@@ -55,10 +58,21 @@ function BoardDetail({ showModal, setShowModal, targetId }: Props) {
     }
   };
 
+  const getCommentData = async () => {
+    try {
+      const result = await getAllComment(targetId);
+      setBoardData(result.data);
+      console.log(result.data);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   useEffect(() => {
     if (targetId === 0) return;
     getBoardData();
-  }, [targetId]);
+    getCommentData();
+  }, [targetId, reload]);
 
   useEffect(() => {
     if (showModal) setTimeout(() => setAnimation(true), 1);
@@ -135,6 +149,17 @@ function BoardDetail({ showModal, setShowModal, targetId }: Props) {
             <div className="mb-5 font-light text-gray-500 sm:mb-5 dark:text-gray-400">
               {boardData.viewCount}
             </div>
+            <div className="mb-2 font-semibold leading-none text-gray-900 dark:text-white">
+              댓글
+            </div>
+            <div className="mb-5 font-light text-gray-500 sm:mb-5 dark:text-gray-400">
+              {boardData.viewCount}
+            </div>
+            <CommentForm
+              targetId={targetId}
+              reload={reload}
+              setReload={setReload}
+            />
           </div>
           {user.id === boardData.memberId && (
             <div className="flex justify-between items-center gap-4 mt-10">
