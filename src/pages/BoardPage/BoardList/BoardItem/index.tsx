@@ -27,7 +27,7 @@ function BoardItem({ boardData, setTargetId }: Props) {
         )}
       </h5>
       <p className="mb-3 font-normal text-gray-500 dark:text-gray-400">
-        {boardData.body}
+        {boardData.body.slice(0, 20)}
       </p>
       <p className="inline-flex items-center text-blue-600">{`조회수 ${boardData.viewCount}`}</p>
     </div>
