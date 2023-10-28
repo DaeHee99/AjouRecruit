@@ -1,3 +1,4 @@
 export default {
-  baseURL: "http://localhost:8080/api",
+  baseURL: "http://3.37.107.251:8080",
+  mainURL: "http://3.37.107.251:8000",
 };

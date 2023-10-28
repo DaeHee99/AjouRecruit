@@ -11,14 +11,14 @@ interface fetchType {
 const fetchWrap = async ({ method, url, body, auth }: fetchType) => {
   try {
     const config = {
-      baseURL: properties.baseURL,
+      baseURL: auth ? properties.mainURL : properties.baseURL,
       withCredentials: true,
       headers: {},
     };
 
     if (auth === true) {
       config.headers = {
-        "ACCESS-TOKEN": `Bearer ${localStorage.getItem("accessToken")}`,
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
       };
     }
 
