@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import MDEditor from "@uiw/react-md-editor";
 import Badge from "./Badge";
 import { getTargetBoard } from "../../../api/board";
+import { useNavigate } from "react-router-dom";
 
 interface Props {
   showModal: boolean;
@@ -11,6 +12,7 @@ interface Props {
 }
 
 function BoardDetail({ showModal, setShowModal, targetId }: Props) {
+  const navigation = useNavigate();
   const user = useSelector((state: { user: any }) => state.user);
   const [animation, setAnimation] = useState(false);
   const [boardData, setBoardData] = useState({
@@ -114,7 +116,7 @@ function BoardDetail({ showModal, setShowModal, targetId }: Props) {
               <button
                 type="button"
                 className="w-1/2 text-white inline-flex items-center justify-center bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
-                onClick={() => console.log("first")}
+                onClick={() => navigation(`/update/${boardData.boardId}`)}
               >
                 <svg
                   aria-hidden="true"

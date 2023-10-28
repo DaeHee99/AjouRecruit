@@ -1,16 +1,17 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import MDEditor from "@uiw/react-md-editor";
 import Title from "./Title";
 import CategoryList from "./CategoryList";
 import BottomButton from "./BottomButton";
 import Date from "./Date";
-import { createBoard } from "../../api/board";
+import { updateBoard, getTargetBoard } from "../../api/board";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
-function EditorPage() {
+function UpdatePage() {
   const navigation = useNavigate();
   const user = useSelector((state: { user: any }) => state.user);
+  const { id } = useParams();
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [selectItemList, setSelectItemList] = useState<string[]>([]);
@@ -18,20 +19,37 @@ function EditorPage() {
 
   const submitHandler = async () => {
     try {
-      await createBoard({
+      await updateBoard({
         title: title,
         body: content,
-        memberId: user.id,
+        boardId: Number(id),
         tags: selectItemList,
         dueDate: endDate,
       });
 
-      alert("등록 완료!");
-      navigation("/board", { replace: true });
+      alert("수정 완료!");
+      navigation(-1);
     } catch (e) {
-      alert("등록에 실패했습니다.");
+      alert("수정에 실패했습니다.");
     }
   };
+
+  const getTargetBoardFunc = async () => {
+    try {
+      const result = await getTargetBoard(Number(id));
+      if (result.data.memberId !== user.id) navigation(-1);
+      setTitle(result.data.title);
+      setContent(result.data.body);
+      setSelectItemList(result.data.tags);
+      setEndDate(result.data.dueDate.slice(0, 10));
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  useEffect(() => {
+    getTargetBoardFunc();
+  }, [id]);
 
   return (
     <div className="mx-10 mb-24">
@@ -54,4 +72,4 @@ function EditorPage() {
   );
 }
 
-export default EditorPage;
+export default UpdatePage;

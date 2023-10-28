@@ -8,6 +8,14 @@ export const createBoard = async (data: {
   dueDate: string;
 }) => await POST("/board/create", data, true);
 
+export const updateBoard = async (data: {
+  title: string;
+  body: string;
+  boardId: number;
+  tags: string[];
+  dueDate: string;
+}) => await POST("/board/update", data, true);
+
 export const getAllBoard = async () => await GET("/board/all", true);
 
 export const getCategoryBoard = async (category: string) =>
