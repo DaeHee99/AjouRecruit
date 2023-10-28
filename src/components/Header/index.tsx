@@ -50,12 +50,17 @@ function Header() {
                 </Link>
               </>
             ) : (
-              <button
-                onClick={logoutHandler}
-                className="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 md:px-5 py-2 md:py-2.5 mr-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800 hidden md:block"
-              >
-                로그아웃
-              </button>
+              <div className="flex items-center">
+                <span className="text-gray-800 dark:text-white text-lg font-bold mr-4">
+                  반가워요 {user.username} 님   
+                </span>
+                <button
+                  onClick={logoutHandler}
+                  className="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 md:px-5 py-2 md:py-2.5 mr-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800 hidden md:block"
+                >
+                  로그아웃
+                </button>
+              </div>
             )}
             <button
               type="button"
