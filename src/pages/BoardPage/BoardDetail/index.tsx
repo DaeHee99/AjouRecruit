@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 import MDEditor from "@uiw/react-md-editor";
 import Badge from "./Badge";
@@ -15,6 +15,7 @@ interface Props {
 }
 
 function BoardDetail({ showModal, setShowModal, targetId }: Props) {
+  const modalRef = useRef<HTMLDivElement>(null);
   const navigation = useNavigate();
   const user = useSelector((state: { user: any }) => state.user);
   const [reload, setReload] = useState(false);
@@ -38,6 +39,11 @@ function BoardDetail({ showModal, setShowModal, targetId }: Props) {
       modifiedDate: "",
     },
   ]);
+
+  const modalOutSideClick = (e: any) => {
+    if (modalRef.current !== e.target) return;
+    setAnimation(false);
+  };
 
   const getBoardData = async () => {
     try {
@@ -97,6 +103,8 @@ function BoardDetail({ showModal, setShowModal, targetId }: Props) {
       className={`modal-container fixed top-0 left-0 right-0 z-50 w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-full max-h-full bg-gray-900 bg-opacity-50 dark:bg-opacity-80 scale-100 flex transition-opacity duration-700 ${
         animation ? "active opacity-100" : "opacity-0"
       }`}
+      ref={modalRef}
+      onClick={(e) => modalOutSideClick(e)}
     >
       <div className="relative p-4 w-full max-w-2xl h-full md:h-auto mx-auto md:mt-10">
         <div className="relative p-4 bg-white rounded-lg shadow dark:bg-gray-700 sm:p-5">
