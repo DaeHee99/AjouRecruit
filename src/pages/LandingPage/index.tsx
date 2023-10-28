@@ -5,12 +5,12 @@ function LandingPage() {
 
   let obTimeOut = 0;
   let ObjectArray = new Array();
-  ObjectArray[1] = "image01.jpg";
-  ObjectArray[2] = "image02.jpg";
-  ObjectArray[3] = "image03.jpg";
-  ObjectArray[4] = "image04.jpg";
-  ObjectArray[5] = "image05.jpg";
-  ObjectArray[6] = "image06.jpg";
+  ObjectArray[1] = "/img/resume.jpg";
+  ObjectArray[2] = "/img/resume.jpg";
+  ObjectArray[3] = "/img/resume.jpg";
+  ObjectArray[4] = "/img/resume.jpg";
+  ObjectArray[5] = "/img/resume.jpg";
+  ObjectArray[6] = "/img/resume.jpg";
   let nObjectCnt = 0;
   function ShowPicRotate(){
     nObjectCnt++;
@@ -18,7 +18,7 @@ function LandingPage() {
       nObjectCnt = 0;
     }
     if(nObjectCnt < ObjectArray.length){
-      document.getElementById("img_id").src = ObjectArray[nObjectCnt];  
+      document.getElementById("image_id").src = ObjectArray[nObjectCnt];  
       obTimeOut = setTimeout("ShowDefaultRotate()",1000);
     }
     else{
@@ -26,18 +26,25 @@ function LandingPage() {
     }
   }
   function StartAnime(){
-    obTimeOut = window.setTimeout(ShowPicRotate,100);
+    obTimeOut = window.setTimeout(ShowPicRotate,3000);
   }
   window.onload = StartAnime;
   
-  return <div className="flex h-full">
-    <div className="box-content min-h-full w-4/5 p-10px border-[4px]">
-      <div>
-      <img id="image_id" src = "image01.jpg"></img>
+  return <div className="flex">
+    <div className="flex box-content  h-screen w-4/5 p-10px items-center justify-center ">
+      <div className="box-content flex justify-center">
+        <img id="image_id" src = "/img/resume.jpg" alt="no images"></img>
       </div>
     </div>
-    <div className="box-border min-h-full sm:w-1/5 p-4 border-[4px] grid place-item-center">
-      <button type="button" className="px-6 py-3.5 text-base font-medium text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" onClick={() => navigation("/login")}>login</button>
+
+    <div className="box-border sm:w-1/5 py-4 border-4 grid place-items-center inline-block align-middle">
+      <div className="box-border h-1/6 my-2 px-4 grid place-items-center">
+        <img className="w-14 h-14 rounded-full " src="/img/exicon.png" alt="Rounded avatar"></img>
+      </div>
+      <div className="box-border h-1/6 w-full px-2 grid place-items-center">  
+        <button type="button" className=" w-full text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800" onClick={() => navigation("/login")}>Login</button>
+      </div>
+      <div className="box-border h-3/5"></div>
     </div>
   </div>;
   
