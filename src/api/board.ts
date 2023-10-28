@@ -16,6 +16,12 @@ export const updateBoard = async (data: {
   dueDate: string;
 }) => await POST("/board/update", data, true);
 
+export const deleteBoard = async (data: { boardId: number }) =>
+  await POST("/board/delete", data, true);
+
+export const finishBoard = async (data: { boardId: number }) =>
+  await POST("/board/finish", data, true);
+
 export const getAllBoard = async () => await GET("/board/all", true);
 
 export const getCategoryBoard = async (category: string) =>

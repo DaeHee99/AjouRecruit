@@ -38,6 +38,11 @@ function BoardPage() {
     setShowModal(true);
   }, [targetId]);
 
+  useEffect(() => {
+    if (showModal) return;
+    setTargetId(0);
+  }, [showModal]);
+
   return (
     <div>
       <SideBar category={category} setCategory={setCategory} />

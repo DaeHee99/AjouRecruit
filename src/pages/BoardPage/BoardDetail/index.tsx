@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import MDEditor from "@uiw/react-md-editor";
 import Badge from "./Badge";
-import { getTargetBoard } from "../../../api/board";
+import { getTargetBoard, deleteBoard, finishBoard } from "../../../api/board";
 import { useNavigate } from "react-router-dom";
 
 interface Props {
@@ -35,6 +35,26 @@ function BoardDetail({ showModal, setShowModal, targetId }: Props) {
     }
   };
 
+  const completeBoardHandler = async () => {
+    try {
+      await finishBoard({ boardId: targetId });
+      alert("모집 완료 처리 성공!");
+      navigation("/board", { replace: true });
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const deleteBoardHandler = async () => {
+    try {
+      await deleteBoard({ boardId: targetId });
+      alert("삭제 완료!");
+      setAnimation(false);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   useEffect(() => {
     if (targetId === 0) return;
     getBoardData();
@@ -57,10 +77,15 @@ function BoardDetail({ showModal, setShowModal, targetId }: Props) {
     >
       <div className="relative p-4 w-full max-w-2xl h-full md:h-auto mx-auto md:mt-10">
         <div className="relative p-4 bg-white rounded-lg shadow dark:bg-gray-700 sm:p-5">
-          <div className="flex justify-between mb-4 rounded-t sm:mb-5">
-            <div className="text-lg text-gray-900 md:text-xl dark:text-white">
+          <div className="flex justify-between mb-4 rounded-t sm:mb-5 relative">
+            <div className="text-lg text-gray-900 md:text-xl dark:text-white flex">
               <h3 className="font-semibold ">{boardData.title}</h3>
             </div>
+            {boardData.isFinished && (
+              <span className="absolute top-0 left-1/2 -translate-x-1/2 flex justify-center items-center bg-red-100 text-red-800 text-xs font-medium py-2 px-2.5 rounded dark:bg-gray-700 dark:text-red-400 border border-red-400">
+                모집 완료
+              </span>
+            )}
             <div>
               <button
                 type="button"
@@ -115,7 +140,7 @@ function BoardDetail({ showModal, setShowModal, targetId }: Props) {
             <div className="flex justify-between items-center gap-4 mt-10">
               <button
                 type="button"
-                className="w-1/2 text-white inline-flex items-center justify-center bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                className="w-full text-white inline-flex items-center justify-center bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
                 onClick={() => navigation(`/update/${boardData.boardId}`)}
               >
                 <svg
@@ -134,10 +159,19 @@ function BoardDetail({ showModal, setShowModal, targetId }: Props) {
                 </svg>
                 수정
               </button>
+              {!boardData.isFinished && (
+                <button
+                  type="button"
+                  className="w-full focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900"
+                  onClick={completeBoardHandler}
+                >
+                  모집 완료
+                </button>
+              )}
               <button
                 type="button"
-                className="w-1/2 inline-flex items-center justify-center text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-900"
-                onClick={() => console.log("ds")}
+                className="w-full inline-flex items-center justify-center text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-900"
+                onClick={deleteBoardHandler}
               >
                 <svg
                   aria-hidden="true"
