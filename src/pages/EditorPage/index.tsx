@@ -7,7 +7,7 @@ function EditorPage() {
   const [content, setContent] = useState("");
 
   return (
-    <div className="mx-5">
+    <div className="mx-10 mb-20">
       <h5 className="mt-5 mb-2 text-xl font-bold dark:text-white">
         글을 작성해주세요.
       </h5>
