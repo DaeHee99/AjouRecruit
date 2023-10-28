@@ -43,7 +43,7 @@ function Header() {
                   로그인
                 </Link>
                 <Link
-                  to="/signup"
+                  to="/"
                   className="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 md:px-5 py-2 md:py-2.5 mr-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800 hidden md:block"
                 >
                   회원가입
