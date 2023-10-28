@@ -1,7 +1,12 @@
 import { useState } from "react";
 import CategoryItem from "./CategoryItem";
 
-function CategoryList() {
+interface Props {
+  selectItemList: string[];
+  setSelectItemList: React.Dispatch<React.SetStateAction<string[]>>;
+}
+
+function CategoryList({ selectItemList, setSelectItemList }: Props) {
   const [itemList] = useState([
     "개발",
     "디자인",
@@ -12,7 +17,6 @@ function CategoryList() {
     "마케팅",
     "운동",
   ]);
-  const [selectItemList, setSelectItemList] = useState<string[]>([]);
 
   return (
     <>

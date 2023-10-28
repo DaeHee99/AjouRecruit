@@ -5,6 +5,7 @@ function MainLayout() {
   return (
     <>
       <Header />
+      <div className="h-16"></div>
       <Outlet />
     </>
   );

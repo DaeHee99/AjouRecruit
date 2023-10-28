@@ -1,6 +1,5 @@
 import { Routes, Route } from "react-router-dom";
 import Auth from "./hoc/Auth";
-import Header from "./components/Header";
 import MainLayout from "./components/MainLayout";
 import LandingPage from "./pages/LandingPage";
 import LoginPage from "./pages/LoginPage";
