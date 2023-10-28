@@ -33,7 +33,6 @@ function LoginForm() {
       navigation("/", { replace: true });
     } catch (e) {
       setValidation(false);
-      console.log(e);
     }
   };
 

@@ -13,38 +13,75 @@ function SearchPassword({ showModal, setShowModal }: Props) {
   const [newPassword, setNewPassword] = useState("");
   const [emailDisable, setEmailDisable] = useState(false);
   const [emailValidation, setEmailValidation] = useState(true);
+  const [emailMessage, setEmailMessage] = useState("");
+  const [codeValidation, setCodeValidation] = useState(true);
+  const [codeMessage, setCodeMessage] = useState("");
+  const [passwordValidation, setPasswordValidation] = useState(true);
+  const [passwordMessage, setPasswordMessage] = useState("");
 
   const emailHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEmailValidation(true);
     setEmail(event.target.value);
   };
-  const codeHandler = (event: React.ChangeEvent<HTMLInputElement>) =>
+  const codeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setCodeValidation(true);
     setCode(event.target.value);
-  const passwordHandler = (event: React.ChangeEvent<HTMLInputElement>) =>
+  };
+  const passwordHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setPasswordValidation(true);
     setNewPassword(event.target.value);
+  };
 
   const sendEmailCode = async () => {
     try {
       await sendPasswordEmail(email);
       setEmailDisable(true);
+      setEmailValidation(false);
+      setEmailMessage("해당 이메일로 인증 코드가 전송되었습니다.");
     } catch (e) {
       setEmailDisable(false);
       setEmailValidation(false);
+      setEmailMessage("현재 존재하지 않는 계정입니다.");
     }
   };
 
   const submitHandler = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
+    if (email === "") {
+      setEmailValidation(false);
+      setEmailMessage("이메일을 입력해주세요.");
+      return;
+    }
+    if (code === "") {
+      setCodeValidation(false);
+      setCodeMessage("인증 코드를 입력해주세요.");
+      return;
+    }
+    if (newPassword === "") {
+      setPasswordValidation(false);
+      setPasswordMessage("비밀번호를 입력해주세요.");
+      return;
+    }
+
     try {
-      const result = await searchPassword({
+      await searchPassword({
         email: email,
         code: code,
         newPassword: newPassword,
       });
-      console.log(result);
-    } catch (e) {
-      console.log(e);
+
+      alert("비밀번호 재설정이 완료되었습니다.");
+      setShowModal(false);
+    } catch (e: any) {
+      if (e.response.data.data.errMsg === "잘못된 인증 정보입니다.") {
+        setCodeValidation(false);
+        setCodeMessage("인증 코드가 잘못 입력되었습니다.");
+        return;
+      }
+      setPasswordValidation(false);
+      setPasswordMessage(e.response.data.data.errMsg);
+      return;
     }
   };
 
@@ -127,9 +164,7 @@ function SearchPassword({ showModal, setShowModal }: Props) {
                     emailValidation ? "hidden" : "block"
                   }`}
                 >
-                  <span className="font-medium">
-                    현재 존재하지 않는 계정입니다.
-                  </span>
+                  <span className="font-medium">{emailMessage}</span>
                 </p>
               </div>
               <div>
@@ -139,16 +174,21 @@ function SearchPassword({ showModal, setShowModal }: Props) {
                 >
                   인증 코드 <span className="text-red-600 font-bold">*</span>
                 </label>
-                <div className="flex flex-row justify-between">
-                  <input
-                    type="text"
-                    id="emailCode"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                    placeholder="0000"
-                    value={code}
-                    onChange={codeHandler}
-                  />
-                </div>
+                <input
+                  type="text"
+                  id="emailCode"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                  placeholder="0000"
+                  value={code}
+                  onChange={codeHandler}
+                />
+                <p
+                  className={`mt-2 text-sm text-red-600 dark:text-red-500 ${
+                    codeValidation ? "hidden" : "block"
+                  }`}
+                >
+                  <span className="font-medium">{codeMessage}</span>
+                </p>
               </div>
               <div>
                 <label
@@ -158,16 +198,21 @@ function SearchPassword({ showModal, setShowModal }: Props) {
                   새로운 비밀번호{" "}
                   <span className="text-red-600 font-bold">*</span>
                 </label>
-                <div className="flex flex-row justify-between">
-                  <input
-                    type="password"
-                    id="newPassword"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                    placeholder="새로운 비밀번호를 입력해주세요."
-                    value={newPassword}
-                    onChange={passwordHandler}
-                  />
-                </div>
+                <input
+                  type="password"
+                  id="newPassword"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                  placeholder="새로운 비밀번호를 입력해주세요."
+                  value={newPassword}
+                  onChange={passwordHandler}
+                />
+                <p
+                  className={`mt-2 text-sm text-red-600 dark:text-red-500 ${
+                    passwordValidation ? "hidden" : "block"
+                  }`}
+                >
+                  <span className="font-medium">{passwordMessage}</span>
+                </p>
               </div>
               <button
                 type="submit"
