@@ -82,13 +82,6 @@ function SideBar({ category, setCategory }: Props) {
     getAllTarget();
   }, []);
 
-  //   "기획",
-  //   "마케팅",
-  //   "코딩",
-  //   "파이썬",
-  //   "자바",
-  //   "운동",
-
   return (
     <div>
       <aside
