@@ -6,6 +6,7 @@ const initialState = {
   email: "",
   loginType: "",
   username: "",
+  id: 0,
 };
 
 const userSlice = createSlice({
@@ -18,6 +19,7 @@ const userSlice = createSlice({
       state.email = body.payload.email;
       state.loginType = body.payload.loginType;
       state.username = body.payload.username;
+      state.id = body.payload.id;
     },
     logout: (state) => {
       state.auth = false;
@@ -25,6 +27,7 @@ const userSlice = createSlice({
       state.email = "";
       state.loginType = "";
       state.username = "";
+      state.id = 0;
       localStorage.removeItem("token");
     },
   },

@@ -10,13 +10,14 @@ function App() {
   const AuthLandingPage = Auth(LandingPage, null);
   const AuthLoginPage = Auth(LoginPage, false);
   const AuthSignupPage = Auth(SignupPage, false);
+  const AuthEditorPage = Auth(EditorPage, true);
 
   return (
     <div className="bg-gray-50 dark:bg-gray-900 m-0">
       <Routes>
         <Route element={<MainLayout />}>
           <Route path="/" element={<AuthLandingPage />} />
-          <Route path="/editor" element={<EditorPage />} />
+          <Route path="/editor" element={<AuthEditorPage />} />
         </Route>
 
         <Route path="/login" element={<AuthLoginPage />} />
