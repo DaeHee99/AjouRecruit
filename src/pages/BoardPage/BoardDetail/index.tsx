@@ -6,6 +6,7 @@ import { getTargetBoard, deleteBoard, finishBoard } from "../../../api/board";
 import { getAllComment } from "../../../api/comment";
 import { useNavigate } from "react-router-dom";
 import CommentForm from "./CommentForm";
+import CommentList from "./CommentList";
 
 interface Props {
   showModal: boolean;
@@ -28,6 +29,15 @@ function BoardDetail({ showModal, setShowModal, targetId }: Props) {
     title: "",
     viewCount: 0,
   });
+  const [commentData, setCommentData] = useState([
+    {
+      commentBody: "",
+      createdDate: "",
+      id: 0,
+      memberId: 0,
+      modifiedDate: "",
+    },
+  ]);
 
   const getBoardData = async () => {
     try {
@@ -61,8 +71,7 @@ function BoardDetail({ showModal, setShowModal, targetId }: Props) {
   const getCommentData = async () => {
     try {
       const result = await getAllComment(targetId);
-      setBoardData(result.data);
-      console.log(result.data);
+      setCommentData(result.data);
     } catch (e) {
       console.log(e);
     }
@@ -153,7 +162,7 @@ function BoardDetail({ showModal, setShowModal, targetId }: Props) {
               댓글
             </div>
             <div className="mb-5 font-light text-gray-500 sm:mb-5 dark:text-gray-400">
-              {boardData.viewCount}
+              <CommentList commentData={commentData} />
             </div>
             <CommentForm
               targetId={targetId}
