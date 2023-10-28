@@ -6,6 +6,9 @@ export const createComment = async (data: {
   commentBody: string;
 }) => await POST("/comments/create", data, true);
 
+export const deleteComment = async (data: { commentId: number }) =>
+  await POST("/comments/delete", data, true);
+
 // export const updateBoard = async (data: {
 //   title: string;
 //   body: string;

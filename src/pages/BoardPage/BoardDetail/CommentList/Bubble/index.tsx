@@ -1,4 +1,5 @@
 import { useSelector } from "react-redux";
+import { deleteComment } from "../../../../../api/comment";
 
 interface Props {
   commentData: {
@@ -8,9 +9,11 @@ interface Props {
     memberId: number;
     modifiedDate: string;
   };
+  reload: boolean;
+  setReload: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const Bubble = ({ commentData }: Props) => {
+const Bubble = ({ commentData, reload, setReload }: Props) => {
   const user = useSelector((state: any) => state.user);
   const isMyMessage = user.id === commentData.memberId;
 
@@ -29,32 +32,51 @@ const Bubble = ({ commentData }: Props) => {
     }:${date.getMinutes() <= 9 ? "0" + date.getMinutes() : date.getMinutes()}`;
   };
 
+  const deleteHandler = async () => {
+    try {
+      await deleteComment({ commentId: commentData.id });
+      setReload(!reload);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   if (commentData.id === 0) return null;
   return (
-    <div
-      className={`flex my-1 ${isMyMessage ? "flex-row-reverse" : "flex-row"}`}
-    >
+    <>
       <div
-        className={`${
-          isMyMessage
-            ? "bg-primary-500 text-white rounded-l-lg rounded-br-lg"
-            : "bg-gray-200 dark:text-gray-200 dark:bg-gray-600 rounded-r-lg rounded-bl-lg"
-        } p-2 max-w-xs w-48 sm:w-64`}
+        className={`flex mt-1 ${isMyMessage ? "flex-row-reverse" : "flex-row"}`}
       >
-        <div className={`relative p-1 break-words`}>
-          <span className="text-sm">{commentData.commentBody}</span>
+        <div
+          className={`${
+            isMyMessage
+              ? "bg-primary-500 text-white rounded-l-lg rounded-br-lg"
+              : "bg-gray-200 dark:text-gray-200 dark:bg-gray-600 rounded-r-lg rounded-bl-lg"
+          } p-2 max-w-xs w-40 sm:w-56`}
+        >
+          <div className={`relative p-1 break-words`}>
+            <span className="text-sm">{commentData.commentBody}</span>
+          </div>
+        </div>
+        <div
+          className={`mt-auto mx-1 text-xs ${
+            isMyMessage ? "ml-auto" : "mr-auto"
+          }`}
+        >
+          <span className="dark:text-gray-400">
+            {convertTime(commentData.modifiedDate)}
+          </span>
         </div>
       </div>
-      <div
-        className={`mt-auto mx-1 text-xs ${
-          isMyMessage ? "ml-auto" : "mr-auto"
-        }`}
-      >
-        <span className="dark:text-gray-400">
-          {convertTime(commentData.modifiedDate)}
-        </span>
-      </div>
-    </div>
+      {isMyMessage && (
+        <button
+          className="ml-auto text-sm text-gray-900 underline dark:text-white decoration-red-500"
+          onClick={deleteHandler}
+        >
+          삭제
+        </button>
+      )}
+    </>
   );
 };
 

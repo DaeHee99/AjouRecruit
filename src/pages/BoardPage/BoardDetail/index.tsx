@@ -162,7 +162,11 @@ function BoardDetail({ showModal, setShowModal, targetId }: Props) {
               댓글
             </div>
             <div className="mb-5 font-light text-gray-500 sm:mb-5 dark:text-gray-400">
-              <CommentList commentData={commentData} />
+              <CommentList
+                commentData={commentData}
+                reload={reload}
+                setReload={setReload}
+              />
             </div>
             <CommentForm
               targetId={targetId}

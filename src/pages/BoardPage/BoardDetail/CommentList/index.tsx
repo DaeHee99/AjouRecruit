@@ -8,13 +8,20 @@ interface Props {
     memberId: number;
     modifiedDate: string;
   }[];
+  reload: boolean;
+  setReload: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function CommentList({ commentData }: Props) {
+function CommentList({ commentData, reload, setReload }: Props) {
   return (
     <div className="flex flex-col gap-2">
       {commentData.map((item) => (
-        <Bubble key={item.id} commentData={item} />
+        <Bubble
+          key={item.id}
+          commentData={item}
+          reload={reload}
+          setReload={setReload}
+        />
       ))}
     </div>
   );
