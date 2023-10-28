@@ -96,8 +96,8 @@ function SideBar({ category, setCategory }: Props) {
         className="fixed top-16 left-0 z-40 w-64 h-screen transition-transform -translate-x-full md:translate-x-0"
         aria-label="Sidenav"
       >
-        <div className="overflow-y-auto py-5 pb-20 px-3 h-full bg-white border-r border-gray-200 dark:bg-gray-800 dark:border-gray-700 noScrollBar">
-          <div className="sticky top-0 z-50 bg-white">
+        <div className="overflow-y-auto py-5 pb-20 px-3 h-full bg-white border-r border-gray-200 dark:bg-gray-800 dark:border-gray-800 noScrollBar">
+          <div className="sticky top-0 z-50 bg-white dark:bg-gray-800">
             <div className="mb-3 flex items-center justify-center outline-none text-xl">
               <img className="mr-2 w-9" src={board} alt="게시판" />
               <span className="text-gray-900 dark:text-white">게시판</span>
@@ -109,10 +109,10 @@ function SideBar({ category, setCategory }: Props) {
               value={searchText}
               className="w-full p-2 mb-4 border-2 rounded"
             />
-            <div className="space-y-2 border-y-2 border-solid border-gray-100 py-3">
+            <div className="space-y-2 border-y-2 border-solid border-gray-100 py-3 dark:border-gray-800">
               <button
                 onClick={() => handleTagButtonClick("all")}
-                className={`w-full flex items-center justify-center p-2 text-base font-normal rounded-lg dark:text-white dark:hover:bg-gray-700 group ${
+                className={`w-full flex items-center justify-center p-2 text-base font-normal rounded-lg dark:text-white dark:hover:bg-gray-600 group ${
                   category === "all"
                     ? "bg-primary-500 text-white hover:bg-primary-700"
                     : "text-gray-900 hover:bg-gray-200"
@@ -121,12 +121,11 @@ function SideBar({ category, setCategory }: Props) {
                 <img className="mr-3 w-6" src={all} alt="all" />
                 <span>모든 카테고리</span>
               </button>
-
               {tagList.map((item) => (
                 <button
                   key={item.name}
                   onClick={() => handleTagButtonClick(item.name)}
-                  className={`w-full flex items-center justify-center p-2 text-base font-normal rounded-lg dark:text-white dark:hover:bg-gray-700 group ${
+                  className={`w-full flex items-center justify-center p-2 text-base font-normal rounded-lg dark:text-white dark:hover:bg-gray-600 group ${
                     category === item.name
                       ? "bg-primary-500 text-white hover:bg-primary-700"
                       : "text-gray-900 hover:bg-gray-200"

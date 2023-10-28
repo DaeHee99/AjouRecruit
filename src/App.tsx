@@ -1,4 +1,6 @@
+import { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
+import { darkMode } from "./utils";
 import Auth from "./hoc/Auth";
 import MainLayout from "./components/MainLayout";
 import LandingPage from "./pages/LandingPage";
@@ -15,6 +17,10 @@ function App() {
   const AuthEditorPage = Auth(EditorPage, true);
   const AuthBoardPage = Auth(BoardPage, true);
   const AuthUpdatePage = Auth(UpdatePage, true);
+
+  useEffect(() => {
+    darkMode();
+  }, []);
 
   return (
     <div className="bg-gray-50 dark:bg-gray-900 m-0">

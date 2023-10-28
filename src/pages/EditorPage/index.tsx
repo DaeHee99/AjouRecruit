@@ -34,7 +34,7 @@ function EditorPage() {
   };
 
   return (
-    <div className="mx-10 mb-24">
+    <div className="mx-10 pb-24">
       <Title title={title} setTitle={setTitle} />
       <h5 className="mt-5 mb-2 text-xl font-bold dark:text-white">
         글을 작성해주세요.
