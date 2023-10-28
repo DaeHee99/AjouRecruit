@@ -19,3 +19,11 @@ body {
 .font-bold {
   font-family: "AppleSDGothicNeoB";
 }
+
+ul {
+  list-style: disc;
+}
+
+ol {
+  list-style-type: decimal;
+}

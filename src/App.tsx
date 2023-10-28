@@ -1,8 +1,9 @@
 import { Routes, Route } from "react-router-dom";
+import Auth from "./hoc/Auth";
 import LandingPage from "./pages/LandingPage";
 import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
-import Auth from "./hoc/Auth";
+import EditorPage from "./pages/EditorPage";
 
 function App() {
   const AuthLandingPage = Auth(LandingPage, null);
@@ -15,6 +16,7 @@ function App() {
         <Route path="/" element={<AuthLandingPage />} />
         <Route path="/login" element={<AuthLoginPage />} />
         <Route path="/signup" element={<AuthSignupPage />} />
+        <Route path="/editor" element={<EditorPage />} />
       </Routes>
     </div>
   );
