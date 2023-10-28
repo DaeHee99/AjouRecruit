@@ -2,10 +2,13 @@ import { useState, useEffect } from "react";
 import SideBar from "./SideBar";
 import BoardList from "./BoardList";
 import { getAllBoard } from "../../api/board";
+import BoardDetail from "./BoardDetail";
 
 function BoardPage() {
   const [category, setCategory] = useState("개발");
   const [boardData, setBoardDate] = useState([]);
+  const [targetId, setTargetId] = useState(0);
+  const [showModal, setShowModal] = useState(false);
 
   const getAllBoardFunc = async () => {
     try {
@@ -20,10 +23,20 @@ function BoardPage() {
     getAllBoardFunc();
   }, []);
 
+  useEffect(() => {
+    if (targetId === 0) return;
+    setShowModal(true);
+  }, [targetId]);
+
   return (
     <div>
       <SideBar category={category} setCategory={setCategory} />
-      <BoardList boardData={boardData} />
+      <BoardList boardData={boardData} setTargetId={setTargetId} />
+      <BoardDetail
+        showModal={showModal}
+        setShowModal={setShowModal}
+        targetId={targetId}
+      />
     </div>
   );
 }

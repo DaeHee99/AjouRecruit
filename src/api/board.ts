@@ -9,3 +9,6 @@ export const createBoard = async (data: {
 }) => await POST("/board/create", data, true);
 
 export const getAllBoard = async () => await GET("/board/all", true);
+
+export const getTargetBoard = async (boardId: number) =>
+  await GET(`/board/find/${boardId}`, true);
