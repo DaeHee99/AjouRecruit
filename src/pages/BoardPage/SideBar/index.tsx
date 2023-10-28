@@ -1,4 +1,5 @@
 import board from "../../../assets/images/board.png";
+import all from "../../../assets/images/all.png";
 import developer from "../../../assets/images/develop.png";
 import designer from "../../../assets/images/designer.png";
 
@@ -22,6 +23,18 @@ function SideBar({ category, setCategory }: Props) {
               <span className="text-gray-900 dark:text-white">게시판</span>
             </div>
             <div className="space-y-2 border-y-2 border-solid border-gray-100 py-3">
+              <button
+                onClick={() => setCategory("all")}
+                className={`w-full flex items-center justify-center p-2 text-base font-normal rounded-lg dark:text-white dark:hover:bg-gray-700 group ${
+                  category === "all"
+                    ? "bg-primary-500 text-white hover:bg-primary-700"
+                    : "text-gray-900 hover:bg-gray-200"
+                }`}
+              >
+                <img className="mr-3 w-6" src={all} alt="all" />
+                <span>모든 카테고리</span>
+              </button>
+
               <button
                 onClick={() => setCategory("개발")}
                 className={`w-full flex items-center justify-center p-2 text-base font-normal rounded-lg dark:text-white dark:hover:bg-gray-700 group ${

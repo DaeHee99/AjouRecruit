@@ -39,11 +39,11 @@ function BoardDetail({ showModal, setShowModal, targetId }: Props) {
   }, [targetId]);
 
   useEffect(() => {
-    if (showModal) setTimeout(() => setAnimation(true), 10);
+    if (showModal) setTimeout(() => setAnimation(true), 1);
   }, [showModal]);
 
   useEffect(() => {
-    if (!animation) setTimeout(() => setShowModal(false), 710);
+    if (!animation) setTimeout(() => setShowModal(false), 701);
   }, [animation]);
 
   if (!showModal) return null;

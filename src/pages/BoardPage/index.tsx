@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import SideBar from "./SideBar";
 import BoardList from "./BoardList";
-import { getAllBoard } from "../../api/board";
+import { getAllBoard, getCategoryBoard } from "../../api/board";
 import BoardDetail from "./BoardDetail";
 
 function BoardPage() {
-  const [category, setCategory] = useState("개발");
+  const [category, setCategory] = useState("all");
   const [boardData, setBoardDate] = useState([]);
   const [targetId, setTargetId] = useState(0);
   const [showModal, setShowModal] = useState(false);
@@ -19,9 +19,19 @@ function BoardPage() {
     }
   };
 
+  const getCategoryBoardFunc = async () => {
+    try {
+      const result = await getCategoryBoard(category);
+      setBoardDate(result.data);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   useEffect(() => {
-    getAllBoardFunc();
-  }, []);
+    if (category === "all") getAllBoardFunc();
+    else getCategoryBoardFunc();
+  }, [category]);
 
   useEffect(() => {
     if (targetId === 0) return;
