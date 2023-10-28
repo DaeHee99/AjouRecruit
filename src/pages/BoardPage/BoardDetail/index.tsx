@@ -7,6 +7,7 @@ import { getAllComment } from "../../../api/comment";
 import { useNavigate } from "react-router-dom";
 import CommentForm from "./CommentForm";
 import CommentList from "./CommentList";
+import RecuritModal from "./RecuritModal";
 
 interface Props {
   showModal: boolean;
@@ -39,6 +40,7 @@ function BoardDetail({ showModal, setShowModal, targetId }: Props) {
       modifiedDate: "",
     },
   ]);
+  const [showRecuritModal, setShowRecuritModal] = useState(false);
 
   const modalOutSideClick = (e: any) => {
     if (modalRef.current !== e.target) return;
@@ -182,7 +184,7 @@ function BoardDetail({ showModal, setShowModal, targetId }: Props) {
               setReload={setReload}
             />
           </div>
-          {user.id === boardData.memberId && (
+          {user.id === boardData.memberId ? (
             <div className="flex justify-between items-center gap-4 mt-10">
               <button
                 type="button"
@@ -235,8 +237,21 @@ function BoardDetail({ showModal, setShowModal, targetId }: Props) {
                 삭제
               </button>
             </div>
+          ) : (
+            <button
+              type="button"
+              className="w-full mt-5 focus:outline-none text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-900"
+              onClick={() => setShowRecuritModal(true)}
+            >
+              제안 보내기
+            </button>
           )}
         </div>
+        <RecuritModal
+          showModal={showRecuritModal}
+          setShowModal={setShowRecuritModal}
+          boardId={targetId}
+        />
       </div>
     </div>
   );
