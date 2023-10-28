@@ -33,6 +33,9 @@ function Header() {
           <Link to="/" className="flex items-center">
             <img src={Logo} className="h-11" alt="Logo" />
           </Link>
+          <span className="text-gray-800 dark:text-white text-lg font-bold">
+            Ajou Recruit
+          </span>
           <div className="flex items-center md:order-2">
             {!user.auth ? (
               <>
