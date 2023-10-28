@@ -28,7 +28,9 @@ function LoginForm() {
         email: email,
         password: password,
       });
-      console.log(result);
+
+      localStorage.setItem("token", result.data.accessToken);
+      navigation("/", { replace: true });
     } catch (e) {
       setValidation(false);
       console.log(e);

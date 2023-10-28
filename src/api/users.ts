@@ -20,3 +20,5 @@ export const searchPassword = async (data: {
   code: string;
   newPassword: string;
 }) => await POST("/api/account/find-password", data);
+
+export const auth = async () => await GET("/userinfo", true);
