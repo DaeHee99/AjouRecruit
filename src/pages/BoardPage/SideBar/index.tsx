@@ -2,6 +2,7 @@ import board from "../../../assets/images/board.png";
 import all from "../../../assets/images/all.png";
 import developer from "../../../assets/images/develop.png";
 import designer from "../../../assets/images/designer.png";
+import { useState } from "react";
 
 interface Props {
   category: string;
@@ -9,6 +10,23 @@ interface Props {
 }
 
 function SideBar({ category, setCategory }: Props) {
+  const [searchText, setSearchText] = useState("");
+
+  const handleSearchInput = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.value === "") {
+      setCategory("all");
+      setSearchText(event.target.value);
+      return;
+    }
+    setSearchText(event.target.value);
+    setCategory(event.target.value);
+  };
+
+  const handleTagButtonClick = (tag: string) => {
+    setCategory(tag);
+    setSearchText("");
+  };
+
   return (
     <div>
       <aside
@@ -21,10 +39,17 @@ function SideBar({ category, setCategory }: Props) {
             <div className="mb-3 flex items-center justify-center outline-none text-xl">
               <img className="mr-2 w-9" src={board} alt="게시판" />
               <span className="text-gray-900 dark:text-white">게시판</span>
-            </div>
+            </div> 
+            <input
+              type="text"
+              placeholder="태그 검색"
+              onChange={handleSearchInput}
+              value={searchText}
+              className="w-full p-2 mb-4 border-2 rounded"
+            />
             <div className="space-y-2 border-y-2 border-solid border-gray-100 py-3">
               <button
-                onClick={() => setCategory("all")}
+                onClick={() => handleTagButtonClick("all")}
                 className={`w-full flex items-center justify-center p-2 text-base font-normal rounded-lg dark:text-white dark:hover:bg-gray-700 group ${
                   category === "all"
                     ? "bg-primary-500 text-white hover:bg-primary-700"
@@ -36,7 +61,7 @@ function SideBar({ category, setCategory }: Props) {
               </button>
 
               <button
-                onClick={() => setCategory("개발")}
+                onClick={() => handleTagButtonClick("개발")}
                 className={`w-full flex items-center justify-center p-2 text-base font-normal rounded-lg dark:text-white dark:hover:bg-gray-700 group ${
                   category === "개발"
                     ? "bg-primary-500 text-white hover:bg-primary-700"
@@ -48,7 +73,7 @@ function SideBar({ category, setCategory }: Props) {
               </button>
 
               <button
-                onClick={() => setCategory("디자인")}
+                onClick={() => handleTagButtonClick("디자인")}
                 className={`w-full flex items-center justify-center p-2 text-base font-normal rounded-lg dark:text-white dark:hover:bg-gray-700 group ${
                   category === "디자인"
                     ? "bg-primary-500 text-white hover:bg-primary-700"
