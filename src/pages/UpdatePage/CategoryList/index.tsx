@@ -11,10 +11,10 @@ function CategoryList({ selectItemList, setSelectItemList }: Props) {
     "개발",
     "디자인",
     "기획",
+    "마케팅",
     "코딩",
     "파이썬",
     "자바",
-    "마케팅",
     "운동",
   ]);
 

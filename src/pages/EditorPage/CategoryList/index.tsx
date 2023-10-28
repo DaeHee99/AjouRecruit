@@ -12,28 +12,31 @@ function CategoryList({ selectItemList, setSelectItemList }: Props) {
     "개발",
     "디자인",
     "기획",
+    "마케팅",
     "코딩",
     "파이썬",
     "자바",
-    "마케팅",
     "운동",
   ]);
 
   // 새로운 상태 추가
   const [inputValue, setInputValue] = useState("");
-  
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
-  }
+  };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter' && inputValue && !selectItemList.includes(inputValue)) {
-      setSelectItemList(prev => [...prev, inputValue]);
-      setItemList(prev => [...prev, inputValue]); // itemList에 추가
+    if (
+      e.key === "Enter" &&
+      inputValue &&
+      !selectItemList.includes(inputValue)
+    ) {
+      setSelectItemList((prev) => [...prev, inputValue]);
+      setItemList((prev) => [...prev, inputValue]); // itemList에 추가
       setInputValue(""); // 입력 상자 초기화
     }
-  }
-
+  };
 
   return (
     <>

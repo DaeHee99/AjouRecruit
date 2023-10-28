@@ -29,3 +29,5 @@ export const getCategoryBoard = async (category: string) =>
 
 export const getTargetBoard = async (boardId: number) =>
   await GET(`/board/find/${boardId}`, true);
+
+export const getAllTag = async () => await GET("/tags/all", true);
