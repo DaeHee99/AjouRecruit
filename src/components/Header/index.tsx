@@ -31,11 +31,11 @@ function Header() {
             <FaArrowLeft size={20} />
           </button>
           <Link to="/" className="flex items-center">
-            <img src={Logo} className="h-11" alt="Logo" />
+            <img src={Logo} className="h-11 mr-2" alt="Logo" />
+            <span className="text-gray-800 dark:text-white text-xl font-bold">
+              Ajou Recruit
+            </span>
           </Link>
-          <span className="text-gray-800 dark:text-white text-lg font-bold">
-            Ajou Recruit
-          </span>
           <div className="flex items-center md:order-2">
             {!user.auth ? (
               <>
@@ -55,7 +55,7 @@ function Header() {
             ) : (
               <div className="flex items-center">
                 <span className="text-gray-800 dark:text-white text-lg font-bold mr-4">
-                  반가워요 {user.username} 님   
+                  반가워요 {user.username} 님
                 </span>
                 <button
                   onClick={logoutHandler}
@@ -114,17 +114,6 @@ function Header() {
                 홈
               </Link>
               <Link
-                to="/editor"
-                className={`
-                  ${
-                    location.pathname === "/editor"
-                      ? "block py-2 pr-4 pl-3 text-white rounded bg-primary-700 md:bg-transparent md:text-primary-700 md:p-0 dark:text-white"
-                      : "block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-primary-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
-                  }`}
-              >
-                글 작성
-              </Link>
-              <Link
                 to="/board"
                 className={`
                   ${
@@ -134,6 +123,18 @@ function Header() {
                   }`}
               >
                 게시판
+              </Link>
+              <Link
+                to="/editor"
+                className={`
+                  ${
+                    location.pathname === "/editor" ||
+                    location.pathname.slice(0, 7) === "/update"
+                      ? "block py-2 pr-4 pl-3 text-white rounded bg-primary-700 md:bg-transparent md:text-primary-700 md:p-0 dark:text-white"
+                      : "block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-primary-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                  }`}
+              >
+                글 작성
               </Link>
               <Link
                 to="/"
