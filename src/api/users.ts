@@ -1,6 +1,11 @@
 import { GET, POST } from "../utils/axios";
 
-// export const signup = async (data: any) => await POST("/signup", data);
+export const signup = async (data: {
+  email: string;
+  password: string;
+  username: string;
+}) => await POST("/api/account/create", data);
+
 export const login = async (data: {
   loginType: string;
   email: string;
