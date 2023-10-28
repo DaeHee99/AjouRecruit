@@ -21,6 +21,11 @@ const userSlice = createSlice({
     },
     logout: (state) => {
       state.auth = false;
+      state.createdDate = "";
+      state.email = "";
+      state.loginType = "";
+      state.username = "";
+      localStorage.removeItem("token");
     },
   },
 });
