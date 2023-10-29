@@ -9,6 +9,7 @@ import { getPresentation } from "../../api/presentation";
 function NoticePage() {
   const user = useSelector((state: any) => state.user);
   const [userId, setUserId] = useState(0);
+  const [reload, setReload] = useState(false);
   const [showIntroduce, setShowIntroduce] = useState(false);
   const [userIntroduce, setUserIntroduce] = useState("");
   const [noticeData, setNoticeData] = useState([
@@ -23,7 +24,7 @@ function NoticePage() {
 
   const getPresentationFunc = async () => {
     try {
-      const result = await getPresentation(user.id);
+      const result = await getPresentation(userId);
       setUserIntroduce(result.data.body);
     } catch (e) {
       console.log(e);
@@ -41,7 +42,7 @@ function NoticePage() {
 
   useEffect(() => {
     getRecuritDataFunc();
-  }, []);
+  }, [reload]);
 
   useEffect(() => {
     if (userId === 0) return;
@@ -76,6 +77,8 @@ function NoticePage() {
                   showIntroduce={showIntroduce}
                   setShowIntroduce={setShowIntroduce}
                   data={item}
+                  reload={reload}
+                  setReload={setReload}
                 />
               );
           })}

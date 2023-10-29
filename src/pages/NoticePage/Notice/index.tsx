@@ -1,3 +1,5 @@
+import { postCheckRecurit } from "../../../api/recurit";
+
 interface Props {
   setShowIntroduce: React.Dispatch<React.SetStateAction<boolean>>;
   userId: number;
@@ -10,6 +12,8 @@ interface Props {
     isChecked: boolean;
     message: string;
   };
+  reload: boolean;
+  setReload: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 function Notice({
@@ -18,7 +22,18 @@ function Notice({
   setUserId,
   data,
   showIntroduce,
+  reload,
+  setReload,
 }: Props) {
+  const checkHandler = async () => {
+    try {
+      await postCheckRecurit(data.challengerId);
+      setReload(!reload);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   return (
     <div className="p-4 mb-4 text-primary-800 border border-primary-300 rounded-lg bg-primary-50 dark:bg-gray-800 dark:text-primary-400 dark:border-primary-800">
       <div className="flex items-center">
@@ -61,6 +76,7 @@ function Notice({
         <button
           type="button"
           className="text-primary-800 bg-transparent border border-primary-800 hover:bg-primary-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-primary-200 font-medium rounded-lg text-xs px-3 py-1.5 text-center dark:hover:bg-primary-600 dark:border-primary-600 dark:text-primary-400 dark:hover:text-white dark:focus:ring-primary-800"
+          onClick={checkHandler}
         >
           읽음 처리
         </button>
