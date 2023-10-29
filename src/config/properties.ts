@@ -1,4 +1,4 @@
 export default {
-  baseURL: "http://3.37.107.251:8080",
-  mainURL: "http://3.37.107.251:8000",
+  baseURL: "https://www.ajou-recruit.xyz:8080",
+  mainURL: "https://www.ajou-recruit.xyz:8000",
 };

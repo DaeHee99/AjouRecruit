@@ -110,7 +110,7 @@ function SignupForm() {
                   당신은 누구인가요?{" "}
                   <span className="text-red-600 font-bold">*</span>
                 </label>
-                <ul className="flex flex-row justify-between w-full gap-2">
+                <ul className="flex flex-row justify-between w-full gap-2 list-none">
                   <li className="w-full">
                     <input
                       type="radio"
