@@ -42,7 +42,11 @@ function EditorPage() {
       <MDEditor
         height={(window.innerHeight * 3) / 5}
         value={content}
-        onChange={setContent}
+        onChange={(value) => {
+          if (typeof value === "string") {
+            setContent(value);
+          }
+        }}
       />
       <CategoryList
         selectItemList={selectItemList}
