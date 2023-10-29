@@ -21,10 +21,9 @@ function RecuritModal({ showModal, setShowModal, boardId }: Props) {
     if (message === "") return alert("제안 메시지를 작성해주세요.");
 
     try {
-      const result = postRecurit({ boardId: boardId, message: message });
+      await postRecurit({ boardId: boardId, message: message });
       alert("성공적으로 제안을 전송했습니다.");
       setAnimation(false);
-      console.log(result);
     } catch (e) {
       console.log(e);
     }

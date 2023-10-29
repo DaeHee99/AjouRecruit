@@ -10,6 +10,7 @@ import EditorPage from "./pages/EditorPage";
 import BoardPage from "./pages/BoardPage";
 import UpdatePage from "./pages/UpdatePage";
 import UserPage from "./pages/UserPage";
+import NoticePage from "./pages/NoticePage";
 
 function App() {
   const AuthLandingPage = Auth(LandingPage, null);
@@ -19,6 +20,7 @@ function App() {
   const AuthBoardPage = Auth(BoardPage, true);
   const AuthUpdatePage = Auth(UpdatePage, true);
   const AuthUserPage = Auth(UserPage, true);
+  const AuthNoticePage = Auth(NoticePage, true);
 
   useEffect(() => {
     darkMode();
@@ -33,6 +35,7 @@ function App() {
           <Route path="/board" element={<AuthBoardPage />} />
           <Route path="/update/:id" element={<AuthUpdatePage />} />
           <Route path="/user/:id" element={<AuthUserPage />} />
+          <Route path="/notice" element={<AuthNoticePage />} />
         </Route>
 
         <Route path="/login" element={<AuthLoginPage />} />
